@@ -26,6 +26,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func onBillEditingChanged(sender: AnyObject) {
+        let billAmount = NSString(string: self.billField.text!).doubleValue
+        let tip = billAmount * 0.2
+        let total = billAmount + tip
+        
+        self.tipLabel.text = String(format: "$%.2f", tip)
+        self.totalLabel.text = String(format: "$%.2f", total)
+    }
 
 }
 
