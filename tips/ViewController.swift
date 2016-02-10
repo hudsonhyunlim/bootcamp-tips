@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.tipLabel.text = "$0.00"
         self.totalLabel.text = "$0.00"
+        self.billField.becomeFirstResponder()
     }
     
     override func viewWillAppear(animated: Bool) {
