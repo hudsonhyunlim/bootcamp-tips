@@ -22,7 +22,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.tipLabel.text = "$0.00"
         self.totalLabel.text = "$0.00"
+        self.billField.text = String(format:"%.2f", TipsHelper.getRecentTip())
         self.billField.becomeFirstResponder()
+        self.updateTotals()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -47,6 +49,8 @@ class ViewController: UIViewController {
         
         self.tipLabel.text = String(format: "$%.2f", tip)
         self.totalLabel.text = String(format: "$%.2f", total)
+        
+        TipsHelper.setRecentTip(billAmount)
     }
 }
 
