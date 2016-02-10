@@ -20,9 +20,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let recentTip = TipsHelper.getRecentTip()
         self.tipLabel.text = "$0.00"
         self.totalLabel.text = "$0.00"
-        self.billField.text = String(format:"%.2f", TipsHelper.getRecentTip())
+        self.billField.text = recentTip != 0.0 ? String(format:"%.0f", recentTip) : ""
         self.billField.becomeFirstResponder()
         self.updateTotals()
     }
