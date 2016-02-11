@@ -14,16 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
+    @IBOutlet weak var splitSlider: UISlider!
+    @IBOutlet weak var splitLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let recentTip = TipsHelper.getRecentBill()
-        self.tipLabel.text = "$0.00"
-        self.totalLabel.text = "$0.00"
         self.billField.text = recentTip != 0.0 ? String(format:"%.0f", recentTip) : ""
-        self.billField.becomeFirstResponder()
         self.updateTotals()
+        
+        self.billField.becomeFirstResponder()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,11 +41,24 @@ class ViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    @IBAction func onSplitChanged(sender: AnyObject) {
+        let split = round(self.splitSlider.value)
+        splitLabel.text = String(format:"%.0f", split)
+        updateTotals()
+    }
+    
+    @IBAction func onSplitTouchUp(sender: AnyObject) {
+        let split = round(self.splitSlider.value) as Float
+        splitSlider.setValue(split, animated: false)
+        updateTotals()
+    }
+    
     private func updateTotals() {
         let tipPercentage = TipsHelper.TIP_PERCENTAGES[self.tipControl.selectedSegmentIndex]
         let billAmount = NSString(string: self.billField.text!).doubleValue
         let tip = billAmount * tipPercentage
-        let total = billAmount + tip
+        let split = Double(round(self.splitSlider.value))
+        let total = (billAmount + tip) / split
         
         self.tipLabel.text = TipsHelper.formatCurrency(tip)
         self.totalLabel.text = TipsHelper.formatCurrency(total)
