@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private static let TIP_PERCENTAGES = [0.18, 0.2, 0.22]
+    
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     }
     
     private func updateTotals() {
-        let tipPercentage = ViewController.TIP_PERCENTAGES[self.tipControl.selectedSegmentIndex]
+        let tipPercentage = TipsHelper.TIP_PERCENTAGES[self.tipControl.selectedSegmentIndex]
         let billAmount = NSString(string: self.billField.text!).doubleValue
         let tip = billAmount * tipPercentage
         let total = billAmount + tip

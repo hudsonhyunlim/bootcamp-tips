@@ -10,9 +10,10 @@ import Foundation
 
 public final class TipsHelper {
     
-    static let DEFAULT_TIP_INDEX_KEY = "tips.defaultTipPercentage"
-    static let RECENT_TIP_KEY = "tips.recentTip"
-    static let RECENCY_DURATION = 60.0 * 10.0
+    public static let TIP_PERCENTAGES = [0.18, 0.2, 0.22]
+    private static let DEFAULT_TIP_INDEX_KEY = "tips.defaultTipPercentage"
+    private static let RECENT_TIP_KEY = "tips.recentTip"
+    private static let RECENCY_DURATION = 60.0 * 10.0
     
     public static func getDefaultTip() -> Int {
         let defaults = NSUserDefaults.standardUserDefaults()
