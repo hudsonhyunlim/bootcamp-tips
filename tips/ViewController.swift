@@ -10,8 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
-
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -20,7 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let recentTip = TipsHelper.getRecentTip()
+        let recentTip = TipsHelper.getRecentBill()
         self.tipLabel.text = "$0.00"
         self.totalLabel.text = "$0.00"
         self.billField.text = recentTip != 0.0 ? String(format:"%.0f", recentTip) : ""
@@ -48,10 +46,10 @@ class ViewController: UIViewController {
         let tip = billAmount * tipPercentage
         let total = billAmount + tip
         
-        self.tipLabel.text = String(format: "$%.2f", tip)
-        self.totalLabel.text = String(format: "$%.2f", total)
+        self.tipLabel.text = TipsHelper.formatCurrency(tip)
+        self.totalLabel.text = TipsHelper.formatCurrency(total)
         
-        TipsHelper.setRecentTip(billAmount)
+        TipsHelper.setRecentBill(billAmount)
     }
 }
 

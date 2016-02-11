@@ -30,25 +30,32 @@ public final class TipsHelper {
         defaults.synchronize()
     }
     
-    public static func getRecentTip() -> Double {
+    public static func getRecentBill() -> Double {
         let now = NSDate().timeIntervalSince1970
         let defaults = NSUserDefaults.standardUserDefaults()
         let timed = defaults.objectForKey(TipsHelper.RECENT_TIP_KEY) as? [String: Double]
         if (timed != nil && (now - timed!["timestamp"]!) < TipsHelper.RECENCY_DURATION) {
-            return timed!["tip"]!
+            return timed!["bill"]!
         } else {
             return 0.0
         }
     }
     
-    public static func setRecentTip(tip: Double) -> Void {
+    public static func setRecentBill(tip: Double) -> Void {
         let timed = [
-            "tip": tip,
+            "bill": tip,
             "timestamp": NSDate().timeIntervalSince1970
         ]
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(timed, forKey: TipsHelper.RECENT_TIP_KEY)
         defaults.synchronize()
+    }
+    
+    public static func formatCurrency(amount: Double) -> String? {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        formatter.locale = NSLocale.currentLocale()
+        return formatter.stringFromNumber(amount)
     }
     
 }
